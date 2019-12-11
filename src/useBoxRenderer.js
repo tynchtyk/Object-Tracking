@@ -2,16 +2,27 @@ import { useEffect } from 'react'
 
 const renderPredictions = (predictions, canvasRef) => {
   const ctx = canvasRef.current.getContext('2d')
+  ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
   // Font options.
   const font = '16px sans-serif'
   ctx.font = font
   ctx.textBaseline = 'top'
   predictions.forEach(prediction => {
-    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
+
+//    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)    
     const x = prediction.bbox[0]
     const y = prediction.bbox[1]
     const width = prediction.bbox[2]
     const height = prediction.bbox[3]
+
+    const smiley = "🙂";
+    var num = (width+height)/1.35;
+    var font_size = num.toString();
+    var f = font_size + "px Segoe UI";
+    
+    ctx.font = f;
+    ctx.fillText( smiley, x-width/6, y+height/3);
+    
     // Draw the bounding box.
     
     //ctx.strokeStyle = '#00FFFF'
@@ -19,12 +30,13 @@ const renderPredictions = (predictions, canvasRef) => {
     //ctx.strokeRect(x, y, width, height*2)
     
     //fill circle wihth color
+    /*
     ctx.beginPath();
     ctx.arc(x+width/2, y+height, (width+height)/2.7, 0, 2 * Math.PI, false);
     ctx.filter = "blur(8px)"
-    ctx.fillStyle = 'gray';
+    ctx.fillStyle = '🙂';
     ctx.fill();
-    
+    */
 
   
     // Draw the label background.
